@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Shortner</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 20px;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 2.5rem;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+        backdrop-filter: blur(10px);
+      }
+
+      h1 {
+        color: #2d3748;
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      input[type="url"] {
+        width: 100%;
+        padding: 15px 20px;
+        font-size: 1rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        background: white;
+      }
+
+      input[type="url"]:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      input[type="submit"] {
+        width: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        color: white;
+        padding: 15px 20px;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      input[type="submit"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      }
+
+      .result {
+        margin-top: 1.5rem;
+        padding: 1rem;
+        border-radius: 10px;
+        background: #f7fafc;
+        text-align: center;
+      }
+
+      .result a {
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 500;
+        word-break: break-all;
+      }
+
+      .result a:hover {
+        text-decoration: underline;
+      }
+
+      .error {
+        color: #e53e3e;
+        background: #fff5f5;
+        padding: 1rem;
+        border-radius: 10px;
+        margin-top: 1rem;
+        text-align: center;
+      }
+
+      @media (max-width: 640px) {
+        .container {
+          padding: 1.5rem;
+        }
+        
+        h1 {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>URL Shortener</h1>
+      <form action="/" method="post">
+        <div class="form-group">
+          <input type="url" name="long_url" id="long_url" placeholder="Enter your long URL here..." required />
+        </div>
+        <input type="submit" value="Shorten URL" />
+      </form>
+      
+      {% if error %}
+      <div class="error">
+        {{ error }}
+      </div>
+      {% endif %}
+      
+      {% if shorturl %}
+      <div class="result">
+        <p>Your shortened URL:</p>
+        <a href="{{ host }}{{ shorturl }}">{{ host }}{{ shorturl }}</a>
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>
